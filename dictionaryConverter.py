@@ -1,6 +1,6 @@
 swipeDict = {'hgfrerjklo': 'hello'}
 
-f = open ('filename**', 'r')
+f = open ('dictionary.txt', 'r')
 
 for line in f:
     firstspace = line.find(' ', beg=0, end=len(line))
@@ -10,3 +10,6 @@ for line in f:
 
     if not swipeDict.has_key(key):
         swipeDict[key] = value;
+
+
+swipeDict.items()
