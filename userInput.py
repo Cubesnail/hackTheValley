@@ -10,7 +10,7 @@ class takeInput(object):
         self.acceptInput(requestMessage)
         self.root.wm_attributes("-topmost", 1)
         self.root.bind('<Return>', self.do)
-        self.root.win.wm_title("Word Not Found!")
+        self.root.wm_title("Word Not Found!")
 
     def acceptInput(self,requestMessage):
 
