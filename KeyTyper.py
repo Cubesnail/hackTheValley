@@ -605,7 +605,7 @@ def HiByte(val):
     return (val & 0xff00) >> 8
 
 def SendKeys(keys,
-             pause=0.05,
+             pause=0.001,
              with_spaces=False,
              with_tabs=False,
              with_newlines=False,
@@ -671,25 +671,12 @@ def main():
 
 
 def autoTyper(words):
-    actions = """
-            {PAUSE 2}
-            r
-            {PAUSE .25}
-            Notepad.exe{ENTER}
-            {PAUSE 1}
-            Hello{SPACE}World!
-            {PAUSE 1}
-
-            {PAUSE .25}
-            n
-            """
-    SendKeys(actions, pause=.1)
     keys = parse_keys(words, with_newlines=True, with_spaces=True)
     print(keys)
 
     for k in keys:
         k.Run()
-        time.sleep(.1)
+        time.sleep(.05)
     print()
 
 if __name__ == "__main__":

@@ -1,25 +1,43 @@
 from tkinter import *
 from KeyTyper import autoTyper
 from AltTab import AltTab
+import sys
+import time
+
 
 def but1():
     print("Button one was pushed")
 
 
+def do():
+    entered = userInput.get()
+    AltTab()
+    time.sleep(0.1)
+    autoTyper(entered)
+    userInput.set("")
+
+
+def quitter():
+    print("test")
+    sys.exit(0)
+
 win = Tk()
 f = Frame(win)  # Frame init
-b1 = Button(f,text="one")  # In frame 'f'
-b2 = Button(f,text="two")  # In frame 'f'
-b3 = Button(f,text="three")  # In frame 'f'
-v = StringVar()
-e = Entry(win,textvariable=v)
-b1.pack(side=LEFT)
-b2.pack(side=LEFT)
-b3.pack(side=LEFT)
-b1.configure(text="Uno")
-b1.configure(command=but1)
+run = Button(f,text="Run")  # In frame 'f'
+copy = Button(f,text="Copy")  # In frame 'f'
+leave = Button(f,text="Exit")  # In frame 'f'
+userInput = StringVar()
+entered = Entry(win,textvariable=userInput)
+run.pack(side=LEFT)
+copy.pack(side=LEFT)
+leave.pack(side=LEFT)
+run.configure(text="Run")
+run.configure(command=do)
+copy.configure(command=but1)
+leave.configure(command=quitter)
 l = Label(win, text="This label is over all buttons")
-e.pack()
+entered.config(width=400)
+entered.pack()
 f.pack()
 win.wm_attributes("-topmost",1)   # Keep this window on the win
 #win.minsize(width=666, height=666)
