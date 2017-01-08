@@ -27,6 +27,6 @@ def Parser():
 def saver(swipeDict):
     end = open('dictionary.txt', 'w')
     for word in swipeDict:
-        end.write(word + " " + swipeDict[word] + "\n")
+        end.write(swipeDict[word] + " " + word + "\n")
     print('Done')
 print(Parser())
