@@ -12,6 +12,7 @@ class takeInput(object):
         self.root.bind('<Return>', self.do)
 
     def acceptInput(self,requestMessage):
+
         r = self.frame
         k = Label(r,text=requestMessage)
         k.pack(side='left')
@@ -22,7 +23,8 @@ class takeInput(object):
         b.pack(side='right')
 
     def do(self, event):
-        getText()
+        self.string = self.e.get()
+        self.root.destroy()
 
     def gettext(self):
         self.string = self.e.get()

@@ -1,9 +1,12 @@
 from tkinter import *
+from dictionaryParser import saver
 from KeyTyper import autoTyper
 from AltTab import AltTab
 from dictionaryConverter import getDict
-from threading import Thread, Event, Timer
+from threading import Timer
 from userInput import getText
+import atexit
+
 import sys
 import time
 
@@ -48,7 +51,8 @@ def func(event):
 
 
 def callback(phrase):
-    entered.icursor(len(userInput.get()))
+    pass
+#    entered.icursor(len(userInput.get()))
 
 
 
@@ -56,10 +60,13 @@ def test(phrase):
     if phrase != userInput.get():
         print("Changed")
     else:
-        print("Not Changed")
-        userInput.set(userInput.get()+" ")
-        userInput.set(converter(userInput.get()))
-        entered.icursor(len(userInput.get()))
+        if userInput.get().strip(' ') == "":
+            print("Only Whitespace")
+        else:
+            print("Not Changed")
+            userInput.set(userInput.get()+" ")
+            userInput.set(converter(userInput.get()))
+            entered.icursor(len(userInput.get()))
     exit()
 
 
@@ -67,8 +74,17 @@ def onKeyPress(event):
     print('You pressed %s\n' % (event.char, ))
     t = Timer(1, test, [userInput.get()])
     t.start()
-    if userInput.get().endswith(" "):
+    if userInput.get().strip(' ') == "":
+        print("Only Whitespace")
+    elif userInput.get().endswith(" "):
         userInput.set(converter(userInput.get()))
+
+
+def exit_handler():
+    print('My application is saving!')
+    saver(Dictionary)
+
+atexit.register(exit_handler)
 
 
 Dictionary = getDict()
@@ -104,4 +120,3 @@ win.bind('<Return>', func)
 win.bind('<KeyPress>', onKeyPress)
 
 win.mainloop()
-AltTab()
