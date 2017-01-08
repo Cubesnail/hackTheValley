@@ -1,6 +1,6 @@
 dict = []
 result = {}
-start = open('wordlist.txt','r')
+start = open('Zaks words.txt','r')
 while True:
     line = start.readline()
     line = line.strip('\n')
@@ -9,7 +9,7 @@ while True:
     else:
         dict.append(line)
 print(dict)
-end = open('dictionary.txt','w')
+end = open('zak.txt','w')
 i = 0
 
 while i < len(dict):
