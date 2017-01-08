@@ -72,7 +72,7 @@ def test(phrase):
 
 def onKeyPress(event):
     print('You pressed %s\n' % (event.char, ))
-    t = Timer(1, test, [userInput.get()])
+    t = Timer(0.75, test, [userInput.get()])
     t.start()
     if userInput.get().strip(' ') == "":
         print("Only Whitespace")
