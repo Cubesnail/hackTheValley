@@ -2,25 +2,10 @@ from tkinter import *
 from KeyTyper import autoTyper
 from AltTab import AltTab
 from dictionaryConverter import getDict
-from threading import Thread, Event
+from threading import Thread, Event, Timer
+from userInput import getText
 import sys
 import time
-
-class SpaceAdder(Thread):
-    def __init__(self, event):
-        Thread.__init__(self)
-        self.stopped = event
-
-    def run(self):
-        if not self.stopped.wait(0.9):
-            print("my thread")
-            addspace()
-
-    def running(self):
-        if not self.stopped:
-            return False
-        else:
-            return True
 
 def converter(phrase):
     result = phrase.strip(' ')
@@ -28,6 +13,10 @@ def converter(phrase):
     word = parsed[len(parsed)-1]
     if word in Dictionary.keys():
         result = phrase.replace(word,Dictionary[word]).strip(' ')
+    else:
+        newWord = getText("Sorry, we didn't quite get that, what did you mean?")
+        Dictionary[word] = newWord
+        result = phrase.replace(word, newWord).strip(' ')
     return result + ' '
 
 
@@ -59,32 +48,30 @@ def func(event):
 
 
 def callback(phrase):
-    # global lastPress
-    # global timedPress
-    # difference = time.time() - lastPress
-    # print(difference)
-    # stopFlag.set()
-    # stopFlag.clear()
-    # timedPress.run()
-    # lastPress = time.time()
-    # print(phrase.get())
-    # entered.icursor(len(userInput.get()))
+    entered.icursor(len(userInput.get()))
+
+
+
+def test(phrase):
+    if phrase != userInput.get():
+        print("Changed")
+    else:
+        print("Not Changed")
+        userInput.set(userInput.get()+" ")
+        userInput.set(converter(userInput.get()))
+        entered.icursor(len(userInput.get()))
+    exit()
+
+
+def onKeyPress(event):
+    print('You pressed %s\n' % (event.char, ))
+    t = Timer(1, test, [userInput.get()])
+    t.start()
     if userInput.get().endswith(" "):
         userInput.set(converter(userInput.get()))
-    entered.icursor(len(userInput.get()))
 
 
-def addspace():
-    userInput.set(userInput.get()[:len(userInput.get()) - 1] + " " + userInput.get()[len(userInput.get()) - 1:])
-    entered.icursor(len(userInput.get()))
-    print("works")
-
-
-stopFlag = Event()
-stopFlag.set()
 Dictionary = getDict()
-global timedPress
-timedPress = SpaceAdder(stopFlag)
 
 global lastPress
 lastPress = time.time()
@@ -114,6 +101,7 @@ win.wm_attributes("-topmost",1)   # Keep this window on the win
 win.geometry('{}x{}'.format(500,50))
 win.resizable(width=True, height=False)
 win.bind('<Return>', func)
+win.bind('<KeyPress>', onKeyPress)
 
 win.mainloop()
 AltTab()
