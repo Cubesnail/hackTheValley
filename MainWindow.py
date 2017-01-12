@@ -87,7 +87,7 @@ Dictionary = getDict()
 global lastPress
 lastPress = time.time()
 win = Tk()
-win.wm_title("Typing on Ice")
+win.wm_title("Doggo Translator")
 f = Frame(win)  # Frame init
 run = Button(f,text="Run")  # In frame 'f'
 copy = Button(f,text="Copy")  # In frame 'f'
