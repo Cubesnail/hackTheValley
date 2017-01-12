@@ -14,12 +14,7 @@ def converter(phrase):
     result = phrase.strip(' ')
     parsed = result.split(' ')
     word = parsed[len(parsed)-1]
-    if word in Dictionary.keys():
-        result = phrase.replace(word,Dictionary[word]).strip(' ')
-    else:
-        newWord = getText("Sorry, we didn't quite get that, what did you mean?")
-        Dictionary[word] = newWord
-        result = phrase.replace(word, newWord).strip(' ')
+    result = phrase.replace(word,'bark').strip(' ')
     return result + ' '
 
 
